@@ -5,6 +5,12 @@ namespace SingleLinkedList
     public class SingleLinkedList : ISingleLinkedList
     {
         public Node head { get; set; }
+        static int linkedListSize { get; set; }
+        static SingleLinkedList ()
+	    {
+            linkedListSize = 0;
+	    }
+
         //::::::::::::::::::::::::::::::: CREATE A NODE ::::::::::::::::::::::::::::::::::::::::::::::::::::
         //Node is a building block of LinkedList where it stores data and details of next Node 
         public class Node
@@ -20,11 +26,14 @@ namespace SingleLinkedList
                 this.data = data;
                 //BY DEFAULT: whenever a new node is created, it's next is always null. This means that it's just a single node not a list of nodes
                 this.next = null;
+               linkedListSize++;
             }
+            
         }
         //:::::::::::::::::::::::::::::: NODE CREATION DONE! :::::::::::::::::::::::::::::::::::::::::::::::
 
         /// <summary>
+        /// Inserts node at beginning
         /// Create a new node to add.
         /// CHECK: Is there any existing LinkedList? HOW TO CHECK: by checking if HEAD is null
         /// if HEAD is null, means there is no existing linkedlst. Simply use newly created Node above and set it as a HEAD. 
@@ -45,6 +54,7 @@ namespace SingleLinkedList
         }
 
         /// <summary>
+        /// Insert node at end
         /// First TRAVERSE linkedList until you find a node which points to null (i.e next of last node points to null)
         /// Now,simply update next of existing last node to our new node and new node points to null.
         /// </summary>
@@ -103,6 +113,59 @@ namespace SingleLinkedList
             Console.WriteLine("NULL");
         }
 
+        /// <summary>
+        /// Delete node at beginning.
+        /// Point current head to next node
+        /// </summary>
+        /// <returns></returns>
+        public void deleteFirst()
+        {
+            //check for if list is empty
+            if(head == null)
+            {
+                Console.WriteLine("List is empty");
+                return;
+            }
+
+            head = head.next;
+            linkedListSize--;
+        }
+
+        public void deleteLast()
+        {
+            //CORNER case: 1
+            if (head == null)
+            {
+                Console.WriteLine("List is null");
+                return ;
+            }
+            linkedListSize--;
+            //CORNER case: 2
+            if(head.next == null)
+            {
+                // means there is only one element in linkedlist. Hence make head as null to delete
+                head = null;
+            }
+
+            Node secondLastNode = head;
+            //if above node is the secondLastNode with value of Head. Then, next node will be surely last node
+            Node lastNode = head.next; //if head.next == null --means it's--> last node
+            //Iterate until you get next of last node as null 
+            while(lastNode.next != null) // null.next == null  and null.next != null give exception
+            {
+                lastNode = lastNode.next;
+                secondLastNode = secondLastNode.next;
+            }
+
+            //make next of second last as null
+            secondLastNode.next = null;
+        }
+
+        public void size()
+        {
+            Console.WriteLine(linkedListSize);
+        }
+
         public string printListForUnitTest()
         {
             Node currentNode = head;
@@ -136,10 +199,15 @@ namespace SingleLinkedList
             linkedlist.addFirst("Isn't");
             linkedlist.addFirst("this");
             linkedlist.addLast("fantastic!");
+            linkedlist.addLast("yes");
             linkedlist.printList();
             //linkedlist.printListForUnitTest();
-            Console.WriteLine(linkedlist.printListForUnitTest());
-            Console.ReadLine();
+            //Console.WriteLine(linkedlist.printListForUnitTest());
+            linkedlist.deleteFirst();
+            linkedlist.printList();
+            linkedlist.deleteLast();    
+            linkedlist.printList();
+            linkedlist.size();
         }
     }
 }

@@ -13,6 +13,15 @@ namespace SingleLinkedList
 		//Print List | Traversal
 		public void printList();
 
+		//Delete List
+		public void deleteFirst();
+
+		//Delete
+		public void deleteLast();
+
+		//Length of linkedList
+		public void size();
+
 		public string printListForUnitTest();
 	}
 }
