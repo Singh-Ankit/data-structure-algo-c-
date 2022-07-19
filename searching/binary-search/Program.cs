@@ -4,7 +4,20 @@ namespace binary_search
 {
     public class BinarySearch
     {
-
+        /*
+         * BINARY Search is implemented on a sorted array
+         * Search a sorted array by repeatedly dividing the search interval in half. Begin with an interval covering the whole array. 
+         * If the value of the search key is less than the item in the middle of the interval, narrow the interval to the lower half.
+         * Otherwise, narrow it to the upper half. Repeatedly check until the value is found or the interval is empty. 
+         * Best Time complexity is o(1)
+         * worst Time complexity is:
+         *  At Iteration 1, Length of array = n
+         *  At Iteration 2, Length of array = n/2
+         *  At Iteration 3, Length of array = (n/2)/2 = n/(2)^2 or n/4
+         *  Therefore, after Iteration k, Length of array = n/2k
+         *  Now, Length of array = n/2k = 1 ; => n = 2k ; Apply log function both sides then log2 (n) = k log2 2
+         *  therefore, worst complexity s O(Log n)
+         */
         static void Main(string[] args)
         {
             Console.WriteLine("Hello World!");
@@ -73,7 +86,7 @@ namespace binary_search
                 //1. find the middle element (start + end)/2
                 int mid = start + (end - start) / 2;
 
-                // 3. check if tagert is greater of smaller then mid
+                // 2. check if tagert is greater of smaller then mid
                 if ( target < arr[mid])
                 {
                     // here, target is smaller then mid, so will keep breaking first half unitl mid is target
